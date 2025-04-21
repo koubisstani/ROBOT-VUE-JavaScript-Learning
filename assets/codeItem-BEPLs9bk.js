@@ -1,0 +1,1 @@
+import{_ as t,o as n,g as r,a as e,q as l}from"./index-B1DbA9VS.js";const a={},c={style:{color:"lightblue"}};function d(o,s){return n(),r("div",null,[s[0]||(s[0]=e("br",null,null,-1)),e("p",c,[l(o.$slots,"code")]),e("p",null,[l(o.$slots,"item")])])}const u=t(a,[["render",d]]);export{u as C};

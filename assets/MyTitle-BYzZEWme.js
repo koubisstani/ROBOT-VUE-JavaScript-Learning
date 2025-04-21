@@ -1,0 +1,1 @@
+import{_ as a,o as n,g as o,a as t,t as s}from"./index-B1DbA9VS.js";const r={class:"header"},i={__name:"MyTitle",props:{title1:String,title2:String},setup(e){return(c,l)=>(n(),o("div",r,[t("h1",null,s(e.title1),1),t("h2",null,s(e.title2),1),l[0]||(l[0]=t("hr",null,null,-1))]))}},d=a(i,[["__scopeId","data-v-8d21880f"]]);export{d as M};
