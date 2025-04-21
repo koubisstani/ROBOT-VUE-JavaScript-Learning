@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #robotCanvas {
+            background-color: #d3d3d3;
+            /* Light grey background for the canvas */
+            position: relative;
+        }
+    </style>
+</head>
+
+<body>
+    <header><button id="LineButton">start to run</button></header>
+    <main style="width: 1200px; margin: auto; position: relative">
+        <canvas id="robotCanvas" width="1200" height="600"></canvas>
+    </main>
+
+    <script>
+        const canvas = document.getElementById('robotCanvas')
+        const ctx = canvas.getContext('2d')
+        let x = canvas.width / 2
+        let y = canvas.height / 2
+        let dx = 2 // Initial speed
+        let dy = 2 // Initial speed
+        let radius = 20
+        let color = 'green'
+        let animationId
+        let isRunning = false
+        let runLeft = false
+        let runTop = false
+        let runRight = false
+        let runBottom = true
+        console.log(x, y)
+
+        function draw() {
+            if (runLeft) {
+                ctx.clearRect(0, 0, canvas.width, canvas.height)
+                ctx.beginPath()
+                ctx.moveTo(x - 50, y - 30)
+                ctx.lineTo(x + 50, y - 30)
+                ctx.lineTo(x + 50, y + 30)
+                ctx.lineTo(x - 50, y + 30)
+                ctx.lineTo(x - 50, y - 30)
+                ctx.fillStyle = color
+                ctx.fill()
+
+                ctx.beginPath()
+                let x1 = x - 25
+                var y1 = y + 25
+                var radius = 15 // 圆弧半径
+                var startAngle = 0 // 开始点
+                var endAngle = Math.PI * 2 // 结束点
+                ctx.arc(x1, y1, radius, startAngle, endAngle, 0)
+                ctx.fillStyle = 'blue'
+                ctx.fill()
+
+                ctx.beginPath()
+                let x2 = x + 25
+                var y2 = y + 25
+                var radius = 15 // 圆弧半径
+                var startAngle = 0 // 开始点
+                var endAngle = Math.PI * 2 // 结束点
+                ctx.arc(x2, y2, radius, startAngle, endAngle, 0)
+                ctx.fillStyle = 'blue'
+                ctx.fill()
+
+                ctx.beginPath()
+                let x3 = x - 50
+                var y3 = y
+                var radius = 15 // 圆弧半径
+                var startAngle = 0 // 开始点
+                var endAngle = Math.PI * 2 // 结束点
+                ctx.arc(x3, y3, radius, startAngle, endAngle, 0)
+                ctx.fillStyle = 'red'
+                ctx.fill()
+                ctx.closePath()
+            } else if (runRight) {
+                ctx.clearRect(0, 0, canvas.width, canvas.height)
+                ctx.beginPath()
+                ctx.moveTo(x - 50, y - 30)
+                ctx.lineTo(x + 50, y - 30)
+                ctx.lineTo(x + 50, y + 30)
+                ctx.lineTo(x - 50, y + 30)
+                ctx.lineTo(x - 50, y - 30)
+                ctx.fillStyle = color
+                ctx.fill()
+
+                ctx.beginPath()
+                let x1 = x - 25
+                var y1 = y - 25
+                var radius = 15 // 圆弧半径
+                var startAngle = 0 // 开始点
+                var endAngle = Math.PI * 2 // 结束点
+                ctx.arc(x1, y1, radius, startAngle, endAngle, 0)
+                ctx.fillStyle = 'blue'
+                ctx.fill()
+
+                ctx.beginPath()
+                let x2 = x + 25
+                var y2 = y - 25
+                var radius = 15 // 圆弧半径
+                var startAngle = 0 // 开始点
+                var endAngle = Math.PI * 2 // 结束点
+                ctx.arc(x2, y2, radius, startAngle, endAngle, 0)
+                ctx.fillStyle = 'blue'
+                ctx.fill()
+
+                ctx.beginPath()
+                let x3 = x + 50
+                var y3 = y
+                var radius = 15 // 圆弧半径
+                var startAngle = 0 // 开始点
+                var endAngle = Math.PI * 2 // 结束点
+                ctx.arc(x3, y3, radius, startAngle, endAngle, 0)
+                ctx.fillStyle = 'red'
+                ctx.fill()
+                ctx.closePath()
+            }
+            //...
+        }
+
+        function update() {
+            if (x >= 600) {
+                dx = 0
+                runRight = false
+                runBottom = true
+                dy = 2
+            }
+            // ...
+            console.log(x, y)
+            x += dx
+            y += dy
+            draw()
+            animationId = requestAnimationFrame(update)
+        }
+
+    </script>
+</body>
+
+</html>

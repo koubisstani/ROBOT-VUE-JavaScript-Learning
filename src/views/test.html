@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *,
+        *:before,
+        *:after {
+            -moz-box-sizing: border-box;
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+        }
+
+        @media screen and (min-width : 1024px) {
+            .intro {
+                float: left;
+                width: 35%;
+                max-width: 550px;
+            }
+
+            .intro h1 {
+                margin-top: 25px;
+            }
+
+            .robot {
+                float: right;
+                width: 65%;
+                margin-top: 25px;
+            }
+        }
+
+        @media screen and (min-width : 768px) {
+
+            div.right,
+            div.left {
+                width: 50%;
+                float: left;
+            }
+        }
+
+        html {
+            height: 100%;
+            -webkit-overflow-scrolling: touch;
+            overflow-y: scroll;
+        }
+
+        body {
+            background-color: #ffffff;
+            margin: 0;
+            overflow-y: scroll;
+            height: 100%;
+        }
+
+        #wrapper {
+            background-color: #FFF;
+            margin: 0 auto;
+            position: relative;
+            padding-bottom: 50px;
+            /* Space for the button */
+        }
+
+        canvas:focus {
+            border: 1px solid #0000ff;
+        }
+
+        p {
+            font-family: Arial;
+            color: #010101;
+            font-size: 16px;
+            line-height: 20px;
+        }
+
+        .left {
+            float: left;
+        }
+
+        .right {
+            float: right;
+        }
+
+        .intro {
+            padding: 0 50px 25px 50px;
+        }
+
+        .intro h1 {
+            font-family: Arial;
+            font-weight: bold;
+            text-transform: uppercase;
+            color: #D2002E;
+        }
+
+        .intro h2 {
+            margin-top: 30px;
+            padding-top: 30px;
+            border-top: solid 2px #e9eae8;
+            font-family: Arial;
+            font-weight: bold;
+            text-transform: uppercase;
+            color: #50535a;
+            font-size: 18px;
+        }
+
+        .robot {
+            padding: 0 50px 25px 50px;
+        }
+
+        .robot h2 {
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: solid 2px #e9eae8;
+            font-family: Arial;
+            font-weight: bold;
+            text-transform: uppercase;
+            color: #50535a;
+            font-size: 18px;
+        }
+
+        #footer {
+            clear: both;
+            background-color: #50535a;
+            padding: 25px 50px;
+            min-height: 100px;
+            color: #FFF;
+        }
+
+        #footer img {
+            float: right;
+        }
+
+        #footer p {
+            color: #FFF;
+        }
+
+        #footer a {
+            text-decoration: none;
+            color: #FFF;
+        }
+
+        #footer a:hover {
+            color: #e9eae8;
+            border-bottom: dotted 1px #fafbfb;
+        }
+
+        .logo {
+            position: absolute;
+            right: 50px;
+        }
+
+        .clearfix {
+            overflow: auto;
+        }
+
+        #robotCanvas {
+            background-color: #d3d3d3;
+            /* Light grey background for the canvas */
+        }
+
+        #codeDisplay {
+            width: 800px;
+            margin: 20px auto;
+            padding: 10px;
+            border: 1px solid black;
+            background-color: #f4f4f4;
+            font-family: monospace;
+            white-space: pre-wrap;
+            /* Ensure code formatting is preserved */
+        }
+    </style>
+</head>
+
+<body>
+    <div id="wrapper">
+        <div class="intro">
+            <h1>Moving Circle Robot</h1>
+            <p>In the centre of the canvas there is a small blue ball (representing a robot) with an initial speed of 2.
+                The speed can be set by the input box. Ideally, when it reaches the wall, the direction will be
+                reversed. The size of the ball can also be set by the input box, and the colour of the ball can be
+                changed by clicking on the colour module.</p>
+            <p>The Start/Stop button starts/stops the robot.</p>
+            <div id="controls">
+                <label for="speedInput">Speed: </label>
+                <input type="number" id="speedInput" value="2" min="1" max="10">
+                <label for="colorInput">Color: </label>
+                <input type="color" id="colorInput" value="#0000ff">
+                <label for="sizeInput">Size: </label>
+                <input type="number" id="sizeInput" value="20" min="5" max="100">
+            </div>
+        </div>
+        <div class="robot">
+            <p>Try changing the speed, size and colour of the robot</p>
+            <canvas id="robotCanvas" width="800" height="400"></canvas>
+            <div id="codeDisplay"></div>
+        </div>
+
+        <!-- Existing Start/Stop Button -->
+        <button id="startStopButton">Press to Start</button>
+
+        <!-- New Button for Page Navigation -->
+        <button id="tryItButton">Try it for yourself</button>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('robotCanvas');
+        const ctx = canvas.getContext('2d');
+        let x = canvas.width / 2;
+        let y = canvas.height / 2;
+        let dx = 2; // Initial speed
+        let radius = parseInt(document.getElementById('sizeInput').value);
+        let color = document.getElementById('colorInput').value;
+        let animationId;
+        let isRunning = false;
+
+        function drawCircle() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.beginPath();
+            ctx.arc(x, y, radius, 0, Math.PI * 2);
+            ctx.fillStyle = color;
+            ctx.fill();
+            ctx.closePath();
+        }
+
+        function update() {
+            const speed = parseInt(document.getElementById('speedInput').value);
+            x += dx * speed;
+
+            if (x + radius > canvas.width || x - radius < 0) {
+                dx = -dx; // Reverse direction
+            }
+
+            drawCircle();
+            updateCodeDisplay(speed); // Update code display
+            animationId = requestAnimationFrame(update);
+        }
+
+        function updateCodeDisplay(speed) {
+            const codeDisplay = document.getElementById('codeDisplay');
+            codeDisplay.textContent = `// Current Speed Setting\nlet dx = ${speed};`;
+        }
+
+        document.getElementById('speedInput').addEventListener('input', () => {
+            dx = parseInt(document.getElementById('speedInput').value);
+        });
+
+        document.getElementById('colorInput').addEventListener('input', () => {
+            color = document.getElementById('colorInput').value;
+        });
+
+        document.getElementById('sizeInput').addEventListener('input', () => {
+            radius = parseInt(document.getElementById('sizeInput').value);
+        });
+
+        document.getElementById('startStopButton').addEventListener('click', () => {
+            if (isRunning) {
+                cancelAnimationFrame(animationId);
+                document.getElementById('startStopButton').textContent = 'Press to Start';
+            } else {
+                update();
+                document.getElementById('startStopButton').textContent = 'Press to Stop';
+            }
+            isRunning = !isRunning;
+        });
+
+        drawCircle();
+        updateCodeDisplay(dx); // Initial code display
+
+    </script>
+</body>
+
+</html>

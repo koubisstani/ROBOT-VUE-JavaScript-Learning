@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #robotCanvas {
+            background-color: #d3d3d3;
+            /* Light grey background for the canvas */
+            position: relative;
+        }
+
+        .block {
+            position: absolute;
+        }
+
+        .block1 {
+            top: 0px;
+            left: 0px;
+            width: 1200px;
+            height: 100px;
+            background-color: #555555;
+        }
+
+        .block2 {
+            top: 0px;
+            right: 0px;
+            width: 100px;
+            height: 450px;
+            background-color: #555555;
+        }
+
+        .block3 {
+            top: 200px;
+            left: 0px;
+            width: 900px;
+            height: 100px;
+            background-color: #555555;
+        }
+
+        .block4 {
+            top: 300px;
+            left: 0px;
+            width: 500px;
+            height: 150px;
+            background-color: #555555;
+        }
+
+        .block5 {
+            top: 380px;
+            left: 700px;
+            width: 200px;
+            height: 70px;
+            background-color: #555555;
+        }
+
+        .line1 {
+            position: absolute;
+            top: 445px;
+            left: 400px;
+            width: 400px;
+            height: 5px;
+            background-color: #555555;
+        }
+
+        .line2 {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 5px;
+            height: 600px;
+            background-color: #555555;
+        }
+
+        .block6 {
+            top: 530px;
+            left: 0;
+            width: 1200px;
+            height: 70px;
+            background-color: #555555;
+        }
+    </style>
+</head>
+
+<body>
+    <header><button id="LineButton">start to run</button></header>
+    <main style="width: 1200px; margin: auto; position: relative">
+        <canvas id="robotCanvas" width="1200" height="600"></canvas>
+    </main>
+
+    <script>
+        document.getElementById('LineButton').addEventListener('click', () => {
+            if (isRunning) {
+                cancelAnimationFrame(animationId)
+                document.getElementById('LineButton').textContent = 'start'
+            } else {
+                update()
+                document.getElementById('LineButton').textContent = 'stop'
+            }
+            isRunning = !isRunning
+        })
+    </script>
+</body>
+
+</html>
