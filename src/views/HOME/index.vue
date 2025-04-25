@@ -169,6 +169,39 @@ const w4HandleTask = (data) => {
         exercise files. Enjoy your learning jourey, and feel free to provide any
         feedback!
       </p>
+      <!-- 推荐的 JavaScript 学习资源 -->
+  <div class="recommended-resources">
+    <h2>Recommended Resources</h2>
+    <p>
+      Here are some excellent resources to deepen your understanding of JavaScript fundamentals and interactive robot programming. Exploring these resources alongside the course will significantly enhance your learning journey.
+    </p>
+    <ul>
+      <li>
+        <a href="https://eloquentjavascript.net/" target="_blank">📘 Eloquent JavaScript</a>
+        – Clear explanations and interactive examples to master JavaScript from scratch.
+      </li>
+      <li>
+        <a href="https://developer.mozilla.org/en-US/" target="_blank">📚 MDN Web Docs</a>
+        – Comprehensive documentation on web technologies, essential for every JavaScript developer.
+      </li>
+      <li>
+        <a href="https://www.personal.reading.ac.uk/~shsmchlr/jsrobotstyle/index.html" target="_blank">🤖 Begin Robotics by Richard Mitchell</a>
+        – An interactive exploration of robot programming with JavaScript, great for practical learning.
+      </li>
+    </ul>
+  </div>
+  
+  <div class="course-feedback">
+  <p>
+    After completing all the exercises, I would love to hear from you!  
+    Please feel free to send me an email sharing your thoughts, feedback, or what you found most interesting during the course.
+    I genuinely hope you enjoyed the learning process!
+  </p>
+  <p>
+    📩 Email: <a href="mailto:koubisstani@gmail.com">koubisstani@gmail.com</a>
+  </p>
+  </div>
+
     </header>
 
     <div>
@@ -377,6 +410,20 @@ header p {
   padding: 10px 0;
   display: flex;
   justify-content: space-between;
+}
+.recommended-resources {
+  text-align: left; 
+  margin-top: 60px;
+  padding: 20px;
+  border-top: 2px solid #c6c6c6;
+}
+.course-feedback {
+  margin-top: 60px;
+  padding: 20px;
+  font-size: 14px;
+  line-height: 1.8;
+  background-color: #f9f9f9;
+  border-left: 4px solid #409EFF;
 }
 h1 {
   font-size: 24px;
